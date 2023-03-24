@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+    <script src="https://malsup.github.io/jquery.form.js"></script>
+    <script src="croppr/dist/croppr.js"></script>
+    <link rel="stylesheet" href="croppr/dist/croppr.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <script src="js/segmentation.js"></script>
+</head>
+
+<style>
+    body {
+        padding-left: 10rem
+    }
+
+    .modal1 {
+        padding: 18px;
+        position: absolute;
+        border: 1px solid lightgrey;
+        left: 40%;
+        top: 45%;
+        transform: translateX(-50%);
+        width: 300px;
+    }
+
+    .modal1_cropped {
+        padding: 18px;
+        position: absolute;
+        border: 1px solid lightgrey;
+        transform: translateX(-50%);
+        top: 45%;
+        left: 80%;
+        width: 300px;
+    }
+
+    .modal1 img {
+        max-width: 100%;
+    }
+
+    .modal1_cropped canvas {
+        max-width: 100%;
+    }
+</style>
+
+<body>
+    <h1>Segmentation [1/2]</h1>
+    <h2>This is a randomly selected image. Please segment the main object in the image (e.g., segment cat in the cat
+        image) using the crop box</h2>
+
+    <div class="modal1" id="modal1">
+        <p>Original image</p>
+        <img src="" alt="" id="">
+    </div>
+
+    <div class="modal1_cropped" id="modal1_cropped">
+        <p>Segmented image</p>
+        <button onclick="drawbackground()" id="btn_distortion">Add Distortion on this segmentation</button>
+        <br>
+        <canvas id="canvas"></canvas>
+    </div>
+    <p id="p1">Segmentation Info: </p>
+    *Output: the final cropped area position and size data (based on the natural size of the original image).
+    <br>
+    <br>
+    <center>
+        <a href="crop_2.html">Go to next segmentation</a>
+        <br>
+        <a href="upload.html">Upload additional images</a>
+        <br>
+        <a href="list.html">Back to list of pages</a>
+
+    </center>
+
+
+</body>
+
+</html>

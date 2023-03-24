@@ -1,0 +1,159 @@
+<!doctype html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+    <script src="https://malsup.github.io/jquery.form.js"></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+
+   <style>
+    body{
+        padding-left:10rem
+    }
+        form {
+            display: block;
+            margin: 20px auto;
+            background: #eee;
+            border-radius: 10px;
+            padding: 15px
+        }
+
+        #progress {
+            position: relative;
+            width: 400px;
+            border: 1px solid #ddd;
+            padding: 1px;
+            border-radius: 3px;
+        }
+
+        #bar {
+            background-color: #B4F5B4;
+            width: 0%;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        #percent {
+            position: absolute;
+            display: inline-block;
+            top: 3px;
+            left: 48%;
+        }
+
+        img {
+            width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Upload Images</h1>
+    <h2>Upload some images with text labels (e.g., an image of a cat, an image of a dog, etc.)</h2>
+
+    <form id="myForm" action="php/test2.php" method="post" enctype="multipart/form-data">
+
+
+
+        <!-- <input type="file" size="60" name="myfile"> -->
+        <input accept="image/*" type='file' size="60" name="myfile" id="myfile" onchange="loadFile(event)" />
+        <br>
+        <input type="text" name="upload_name" id="upload_name" placeholder="Enter file name">
+
+        <br>
+        <input type="submit" id="imgInp" value="Ajax File Upload">
+    </form>
+
+    <div id="progress">
+        <div id="bar"></div>
+        <div id="percent">0%</div>
+    </div>
+    <img id="blah" src="img/sample.jpeg" alt="upload your image" />
+
+    <br />
+
+    <div id="message"></div>
+    <h3>Once your image upload is complete, navigate to the <a href="crop_1.html">Segmentation</a> page.</h3>
+
+    <script>
+
+        var loadFile = function (event) {
+            var image = document.getElementById("blah");
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+
+
+
+
+        const id = document.getElementById("upload_name")
+
+        $(document).ready(function () {
+
+            $('#imgInp').hide();
+            $('#upload_name').hide();
+            $('#myfile').change(function () {
+                $('#upload_name').show();
+            });
+            $('#upload_name').keyup(function () {
+                if ($('#upload_name').val()) {
+                    $('#imgInp').show();
+                } else {
+                    $('#imgInp').hide();
+                }
+
+            });
+
+            var options = {
+                beforeSend: function () {
+                    $("#progress").show();
+                    //clear everything
+                    $("#bar").width('0%');
+                    $("#message").html("");
+                    $("#percent").html("0%");
+                },
+                uploadProgress: function (event, position, total, percentComplete) {
+                    $("#bar").width(percentComplete + '%');
+                    $("#percent").html(percentComplete + '%');
+
+                },
+                success: function () {
+                    $("#bar").width('100%');
+                    $("#percent").html('100%');
+
+                },
+                complete: function (response) {
+                    $("#message").html("<font color='green'>" + "Success! You can upload more images." + "</font>");
+                    //$("#message").html("<font color='green'>"+response.responseText+"</font>");
+                    $("#myfile").val("");
+
+                    $('#imgInp').hide();
+                    $('#upload_name').val("");
+                    $('#upload_name').hide();
+
+                    $('#myfile').change(function () {
+                        $('#upload_name').show();
+                    });
+                    $('#upload_name').change(function () {
+                        if ($('#upload_name').val()) {
+                            $('#imgInp').show();
+                        } else {
+                            $('#imgInp').hide();
+                        }
+
+                    });
+                },
+                error: function () {
+                    $("#message").html("<font color='red'> ERROR: unable to upload files</font>");
+
+                }
+
+            };
+
+
+            $("#myForm").ajaxForm(options);
+
+        });
+
+    </script>
+</body>
+
+</html>

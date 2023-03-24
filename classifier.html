@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+	<script src="js/classifier.js"></script>
+	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+</head>
+
+<body style="padding-left:10rem;padding-right:10rem">
+	<center>
+		<h1>Classifier</h1>
+		<h2>Use a classifier and get predicted labels for the images;
+			<br> display images (one by one) along with output labels;
+			<br> ask the user if the predicted labels are correct or not
+		</h2>
+
+		</br>
+		<img src="" alt="" id="image" width="315px" height="200px" />
+		</br></br>
+
+		<button id="predict" onclick="predict()">Click here to get a predicted label</button>
+		<p id="p1">predicted labels: </p>
+		<div id="div1">
+		</div>
+
+		<button id="correct" onclick="correct()" hidden>Correct</button>
+		<button id="incorrect" onclick="incorrect()" hidden>Incorrect</button>
+		<button id="next" onclick="next()" hidden>Show next image</button>
+	</center>
+
+</body>
+
+</html>

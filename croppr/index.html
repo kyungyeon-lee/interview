@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="dist/croppr.js"></script>
+    <link rel="stylesheet" href="dist/croppr.css">
+</head>
+
+<style>
+    .modal {
+        padding: 18px;
+        position: absolute;
+        border: 1px solid lightgrey;
+        left: 40%;
+        transform: translateX(-50%);
+        width: 300px;
+    }
+
+    .modal2 {
+        padding: 18px;
+        position: absolute;
+        border: 1px solid lightgrey;
+        width: 300px;
+        top: 60%;
+        transform: translateX(-50%);
+        left: 40%;
+    }
+
+    .modal img {
+        max-width: 100%;
+    }
+</style>
+
+<body>
+    <h1>Croppr.js</h1>
+    <div class="modal">
+        <img src="https://unsplash.it/500/500/?random" alt="" id="cropper">
+    </div>
+
+    <div class="modal2">
+        <img src="https://unsplash.it/500/500/?random" alt="" id="cropper2">
+    </div>
+
+    <script>
+        var croppr = new Croppr('#cropper', {
+            onInitialize: (instance) => { console.log(instance); },
+            onCropStart: (data) => { console.log('start', data); },
+            onCropEnd: (data) => { console.log('end', data); },
+            onCropMove: (data) => { console.log('move', data); }
+        });
+        var croppr2 = new Croppr('#cropper2', {
+            onInitialize: (instance) => { console.log(instance); },
+            onCropStart: (data) => { console.log('start', data); },
+            onCropEnd: (data) => { console.log('end', data); },
+            onCropMove: (data) => { console.log('move', data); }
+        });
+
+        var saveJson = function (obj) {
+            var str = JSON.stringify(obj);
+            var data = encode(str);
+
+            var blob = new Blob([data], {
+                type: 'application/octet-stream'
+            });
+
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'data.json');
+            var event = document.createEvent('MouseEvents');
+            event.initMouseEvent('click', true, true, window, 1, 0, 0, 0, 0, false, false, false, false, 0, null);
+            link.dispatchEvent(event);
+        }
+
+
+        var encode = function (s) {
+            var out = [];
+            for (var i = 0; i < s.length; i++) {
+                out[i] = s.charCodeAt(i);
+            }
+            return new Uint8Array(out);
+        }
+    </script>
+    <button>Done</button>
+</body>
+
+</html>
